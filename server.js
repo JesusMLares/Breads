@@ -11,6 +11,8 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 // Static assets: CSS
 app.use(express.static('public'))
+// Postman urlencoded string
+app.use(express.urlencoded({extended: true}))
 
 
 // ROUTES
@@ -26,8 +28,6 @@ app.use('/breads', breadsController)
 app.get('*', (req, res) => {
   res.render('error404')
 })
-
-
 
 // Listen
 app.listen(PORT, () => {
