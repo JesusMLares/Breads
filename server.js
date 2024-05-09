@@ -13,6 +13,10 @@ app.engine('jsx', require('express-react-views').createEngine())
 app.use(express.static('public'))
 // Postman urlencoded string
 app.use(express.urlencoded({extended: true}))
+// DEPENDENCIES TO DELETE
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 
 
 // ROUTES
