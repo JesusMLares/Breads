@@ -48,7 +48,4 @@ breads.delete('/:arrayIndex', (req, res) => {
   res.status(303).redirect('/breads')
 })
 
-
-
-
 module.exports = breads;
