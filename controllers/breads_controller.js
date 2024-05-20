@@ -31,15 +31,18 @@ breads.get('/:indexArray/edit', (req, res) => {
     })
 })
 
-// Show
-breads.get('/:arrayIndex', (req, res) => {
-  Bread.findById(req.params.arrayIndex)
-    .then(foundBread =>{
-      res.render('show', {
-        bread: foundBread,
+// SHOW
+breads.get('/:id', (req, res) => {
+  Bread.findById(req.params.id)
+      .then(foundBread => {
+        const bakedBy = foundBread.getBakedBy() 
+        // console.log(bakedBy)
+        res.render('show', {
+            bread: foundBread
+        })
       })
     })
-});
+
 
 
 // CREATE
