@@ -4,58 +4,44 @@ const Bread = require("../models/bread.js");
 const Baker = require("../models/baker.js");
 
 // Index:
-breads.get('/', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.find()
-      .then(foundBreads => {
-          res.render('index', {
-              breads: foundBreads,
-              bakers: foundBakers,
-              title: 'Index Page'
-          })
-      })
-    })
+breads.get('/', async (req, res) => {
+  const foundBakers = await Baker.find()
+  const foundBreads = await Bread.find()
+  res.render('index', {
+    breads: foundBreads,
+    bakers: foundBakers,
+    title: 'Index Page'
+  })
 })
 
 
+
 // NEW PAGE
-breads.get("/new", (req, res) => {
-  Baker.find().then((foundBakers) => {
-    res.render("new", {
-      bakers: foundBakers,
-    });
+breads.get("/new", async (req, res) => {
+  const foundBakers = await Baker.find();
+  res.render("new", {
+    bakers: foundBakers,
   });
 });
 
 // EDIT PAGE
-breads.get('/:indexArray/edit', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-        Bread.findById(req.params.indexArray)
-          .then(foundBread => {
-            res.render('edit', {
-                bread: foundBread, 
-                bakers: foundBakers,
-            })
-          })
-    })
-})
+breads.get('/:indexArray/edit', async (req, res) => {
+  const foundBakers = await Baker.find();
+  const foundBread = await Bread.findById(req.params.indexArray);
+  res.render('edit', {
+    bread: foundBread,
+    bakers: foundBakers,
+  });
+});
 
 
 // SHOW
-breads.get('/:id', (req, res) => {
-  Bread.findById(req.params.id)
-      .populate('baker')
-      .then(foundBread => {
-        res.render('show', {
-            bread: foundBread
-        })
-      })
-      .catch(err => {
-        res.send('404')
-      })
-})
+breads.get('/:id', async (req, res) => {
+  const foundBread = await Bread.findById(req.params.id).populate('baker');
+  res.render('show', {
+    bread: foundBread
+  });
+});
 
 
 // CREATE
