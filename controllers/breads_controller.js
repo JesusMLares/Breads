@@ -5,18 +5,14 @@ const Baker = require("../models/baker.js");
 
 // Index:
 breads.get('/', async (req, res) => {
-  const foundBakers = await Baker.find().lean() 
-  const foundBreads = await Bread.find().limit(2).lean() 
+  const foundBakers = await Baker.find()
+  const foundBreads = await Bread.find()
   res.render('index', {
     breads: foundBreads,
     bakers: foundBakers,
     title: 'Index Page'
   })
 })
-
-
-
-
 
 // NEW PAGE
 breads.get("/new", async (req, res) => {
